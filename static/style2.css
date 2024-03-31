@@ -1,0 +1,467 @@
+:root{
+  --green:#1e6924;
+  --black:#192a56;
+  --light-color:#666;
+  --box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
+  --outline:.1rem solid rgba(0,0,0,.1);
+  --outline-hover:.2rem solid var(--black);
+  --bg-color:#1f242d;
+  --second-bg-color:#323946;
+}
+*{
+  font-family: 'Nunito', sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  text-decoration:none;
+  outline:none;
+  border:none;
+  text-transform:capitalize;
+  transition: all .5s ease;
+
+}
+html{
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-padding-top: 5.5rem;
+  scroll-behavior:smooth;
+}
+
+
+h1 {
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+}
+
+.btn{
+  margin-top:1rem;
+  display:inline-block;
+  padding: .8rem 3rem;
+  font-size:1.7rem;
+  border-radius:.5rem;
+  border:.2rem solid var(--black);
+  color:var(--black);
+  cursor:pointer;
+  background:none;
+
+}
+.btn:hover{
+  background: var(--green);
+  color:#fff;
+}
+.header {
+  position:fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  z-index: 999;
+  width: 100%;
+}
+section {
+  display: none;
+}
+section.active {
+  display: block;
+}
+/* Show the section that corresponds to the current hash in the URL */
+section:target {
+  padding-top: 20px;
+  display: block;
+}
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  height: 50px;
+}
+.nav-links {
+  margin: 0 20px;
+}
+.nav-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.nav-links a:hover {
+  color: #007BFF;
+  transform: scale(1.1);
+}
+.icons {
+  display: flex;
+  align-items: center;
+}
+.icons img {
+  height: 20px;
+  margin: 0 10px;
+}
+.icons a:hover img {
+  transform: rotate(15deg);
+  transform: scale(1.1);
+}
+.popup {
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 200px;
+  height: 80%;
+  background-color: #f8f9fa;
+  padding-top: 120px;
+  padding-left: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+}
+.close-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+.popup #user-details #user-image{
+  height: 40px;
+  margin: 0 10px;
+}
+.search-box {
+  display: none;
+  position: fixed;
+  top: 70px;
+  height: 50px;
+  width: 80%;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+.search-box input {
+  width: 70%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+.search-box button {
+  padding: 10px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+}
+/* Add styles for the close button */
+.close-search-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+.sidebar {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px; /* Adjust this value to set the width of the sidebar */
+  height: 100%;
+  background-color: #f8f9fa;
+}
+/* Add styles for the close button */
+.close-sidebar-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+.sidebar ul a{
+  color: var(--black);
+}
+.symbol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    position: absolute;
+    top: 200px;
+    left: 600px;
+    
+}
+.symbol h1 {
+    margin-bottom: 20px;
+}
+.symbol .form-control {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.symbol .btn{
+  margin-top:1rem;
+  display:inline-block;
+  padding: .8rem 3rem;
+  font-size:1.7rem;
+  border-radius:.5rem;
+  border:.2rem solid var(--black);
+  color:var(--black);
+  cursor:pointer;
+  background:none;
+}
+.symbol .btn:hover{
+  background: var(--green);
+  color:#fff;
+}
+.symbol:hover {
+  transform: scale(1.05);
+  transform-origin: center;
+}
+.active {
+  background-color: #007bff; /* Change the background color to your preference */
+  color: #fff; /* Change the text color to your preference */
+  border-bottom: 2px solid #fff; /* Add a solid white line under the active tab */
+  
+}
+#home-section {
+  height: 100vh; /* 100% of the viewport height */
+  width: 100%; /* 100% of the viewport width */
+  overflow: auto; /* Adds scroll if content overflows */
+}
+#home-section .media-icons{
+    z-index: 888;
+    position:absolute;
+    top:250px;
+    right:30px;
+    display:flex;
+    flex-direction: column;
+    transition: .5s ease;
+}
+#home-section .media-icons a{
+  color:#100202;
+  font-size:1.6em;
+  transition:.3s ease;
+}
+#home-section .media-icons a:not(:last-child){
+  margin-bottom:20px;
+}
+#home-section .media-icons a:hover{
+  transform:scale(1.3);
+}
+#home-section .content{
+  z-index:888;
+    color:#090101;
+    width:35%;
+    margin-top:50px;
+}
+#home-section .content h2{
+  font-size:4em;
+  font-weight:900;
+  text-transform: uppercase;
+  letter-spacing:5px;
+  line-height:75px;
+  margin-bottom:40px;
+}
+#home-section .content h2 span{
+  font-size:1.2em;
+  font-weight:600;
+}
+#home-section .content p{
+  margin-bottom:65px;
+}
+#about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background: var(--second-bg-color);
+  height: 100vh; /* 100% of the viewport height */
+  width: 100%;
+}
+
+#about-section .about-img {
+  max-width: 300px; /* Set a maximum width for the image */
+  width: 100%; /* Make sure the image doesn't exceed its container */
+  padding-top: 100px;
+}
+
+#about-section .heading {
+  text-align: center;
+  font-size: 4.5rem;
+  color: #151111;
+}
+
+#about-section .about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 800px;
+  margin-left: 2rem;
+  padding-top: 100px;
+}
+
+#about-section .about-content h2 {
+  text-align: left;
+  line-height: 1.2;
+  color: #0d0a0a;
+}
+
+#about-section .about-content h3 {
+  font-size: 2.6rem;
+  color: #140f0f;
+}
+
+#about-section .about-content p {
+  font-size: 1.6rem;
+  margin: 2rem 0 3rem;
+  color: #130909;
+}
+#contact-section{
+  display: block;
+  height: 100vh; /* 100% of the viewport height */
+  width: 100%;
+  padding:10rem 9% 2rem;
+  background :var(--bg-color);
+    color:var(--text-color);
+  }
+.contact h2{
+    margin-bottom: 3rem;
+
+}
+.contact form{
+  max-width:70rem;
+  margin:1rem auto;
+  text-align:center;
+  margin-bottom: 3rem;
+}
+.contact form .input-box {
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.contact form .input-box input,
+.contact form textarea{
+  width:100%;
+  padding:1.5rem;
+  font-size:1.6rem;
+  color:var(--text-color);
+  background: var(--second-bg-color);
+  border-radius: .8rem;
+  margin: .7rem 0;
+}
+.contact form .input-box input{
+  width:49%;
+}
+.contact form textarea{
+  resize:none;
+}
+.contact form .btn{
+  margin-top: 2rem;
+  cursor: poiner;
+}
+#services-section{
+  display: block;
+  height: 100vh; /* 100% of the viewport height */
+  width: 100%;
+  padding:10rem 9% 2rem;
+  background :var(--bg-color);
+  color:var(--text-color);
+}
+#services-section h2{
+  margin-bottom:5rem;
+}
+.services-container{
+  display: flex ;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  
+}
+.services-container .services-box{
+  flex:1 1 30rem;
+  background:var(--second-bg-color);
+  padding: 3rem 2rem 4rem;
+  border-radius: 2rem;
+  text-align:center;
+  border: .2rem solid var(--bg-color);
+  transition:.5s ease;
+}
+.services-container .services-box:hover{
+  border-color:var(--main-color);
+  transform:scale(1.02);
+}
+.services-box img{
+  font-size:7rem;
+  color:var(--main-color);
+}
+.services-box h3{
+  font-size:2.6rem;
+}
+.services-box p{
+  font-size:1.6rem;
+  margin:1rem 0 3rem;
+}
+#news-section{
+  display: block;
+  height: 100vh; /* 100% of the viewport height */
+  width: 100%;
+  padding:10rem 9% 2rem;
+  background :var(--bg-color);
+  color:var(--text-color);
+}
+#stock-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#stock-table th,
+#stock-table td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+#stock-table th {
+  background-color: #f2f2f2;
+}
+tr.gainer {
+  color: green;  /* Change text color for gainers */
+}
+
+/* Add styles for losers */
+tr.loser {
+  color: red;  /* Change text color for losers */
+}
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+  }
+  .logo, .icons {
+    margin-bottom: 20px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .sidebar {
+    width: 100%; /* Make the sidebar full width */
+  }
+  .search-box {
+    top: 70px; /* Adjust this value to position the search box just below the header */
+    height: 50px; /* Adjust this value to limit the height of the search box */
+  }
+  .popup {
+    width: 100%; /* Make the popup full width */
+    height: auto; /* Make the height auto */
+  }
+}

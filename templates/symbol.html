@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='fontawesome-free-5.15.3-web/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style3.css') }}" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+
+    <a href="#" id="logo"><img src="static/images/logo.png" alt=""></a>
+    <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#who">about</a>
+        <a href="#services">services</a>
+        <a href="#contact-section">contact</a>
+        <a href="#news-section">Gainers & Losers</a>
+    </nav>
+    <div class="icons">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <img id='user-bar' src="{{ url_for('display_image') }}" alt="User">
+        <div id="cancel-bar" class="fas fa-times" style="display: none;"></div>
+    </div>
+    <div id="popup" style="display: none;">
+        <span class="close-btn" id="close-btn">X</span>
+        <h2>User Profile</h2>
+        <!-- Add user profile details here -->
+        <div id="user-details">
+          <img id="user-image" src="{{ url_for('display_image') }}" alt="User Image">
+          <p id="user-name">Username:{{ current_user.username }}</p>
+          <p id="user-email">Email:{{ current_user.email }}</p>
+          <!-- Other details can go here -->
+        </div>
+        <!-- Image upload form -->
+        <form id="image-upload-form" action="/upload-image" method="POST" enctype="multipart/form-data">
+          <input type="file" name="user-image" accept="image/*">
+          <input type="submit" value="Upload Image" class="btn">
+        </form>
+        <a id='logout' href="/logout">Logout</a>
+      </div>
+</header>
+
+
+<!-- home section -->
+
+<section id="home" class="home">
+    <div class="main-home">
+        <img src="static/images/Project_136-09.jpg" alt="">
+        <div class="left-home">
+            <div class="inner-left-content">
+                <form action="{{ url_for('insertintotable') }}" class="symbol" method="POST">
+                    <h1>Stock Prediction</h1>
+                    <input type="text" class="form-control" name="nm" placeholder=" Stock Symbol" required>
+                    <label for="timeframe">Timeframe:</label><br>
+                    <select id="timeframe" name="timeframe">
+                      <option value="Daily">Daily</option>
+                      <option value="Weekly">Weekly</option>
+                      <option value="Monthly">Monthly</option>
+                      <option value="Yearly">Yearly</option>
+                    </select><br>
+                    <input type="submit"  value="Predict the future" class="btn">
+                    {% if error %}
+                        <p style="color: red;">{{ error }}</p>
+                    {% endif %}
+                  </form>
+        </div>
+            
+
+        </div>
+        <div class="right-home">
+            
+        </div>
+    </div>
+</section>
+
+<section class="predict" id="predict">
+
+</section>
+<!-- who we are -->
+
+<section id="who" class="who">
+    <div class="about">
+    <h1>Who we are</h1>
+    <div class="main-who">
+        <div class="inner-who">
+            <img src="static/images/who we are.png" alt="">
+        </div>
+        <div class="inner-who">
+            <div class="inner-who-content">
+                <h2>Stocksratagema</h2>
+                <p>Welcome to StockStratagema, your trusted partner in navigating the stock market! We leverage the power of ARIMA, Linear Regression, and LSTM models to predict market trends and provide you with actionable investment recommendations.Join us today and let StockStratagema guide you towards a prosperous financial future!</p>
+                <a href="#">read more</a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+
+<!-- what we offer -->
+
+<section id="services" class="we-offer">
+    <h1>what we offer</h1>
+    <div class="main-offer">
+        <div class="inner-offer">
+            <img src="static/images/serviceicons1.png" alt="">
+
+            <h2>Predictive Analytics</h2>
+            <p>We use ARIMA, Linear Regression, and LSTM models to predict future stock prices, helping you make informed investment decisions</p>
+            <a href="#">Read more</a>
+       
+        </div>
+
+        <div class="inner-offer">
+            <img src="static/images/serviceicons 2.png" alt="">
+
+            <h2>Investment Recommendations</h2>
+            <p>Based on our predictive analytics, we provide ‘buy’, ‘sell’, or ‘hold’ recommendations for various stocks.</p>
+            <a href="#">Read more</a>
+       
+        </div>
+
+        <div class="inner-offer">
+            <img src="static/images/serviceicons3.png" alt="">
+
+            <h2>Portfolio Optimization</h2>
+            <p>We help you optimize your investment portfolio for maximum returns and minimum risk, based on your financial goals and risk tolerance.</p>
+            <a href="#">Read more</a>
+       
+        </div>
+
+        <div class="inner-offer">
+            <img src="static/static/images/serviceicons4.png" alt="">
+
+            <h2>Market Trend Analysis</h2>
+            <p>We analyze market trends and provide insights into potential investment opportunities.</p>
+            <a href="#">Read more</a>
+       
+        </div>
+
+        <div class="inner-offer">
+            <img src="static/images/serviceicons5.png" alt="">
+
+            <h2>Risk Assessment</h2>
+            <p>We assess the potential risks associated with different investments, helping you make safer investment decisions.</p>
+            <a href="#">Read more</a>
+       
+        </div>
+
+        <div class="inner-offer">
+            <img src="static/images/serviceicons6.png" alt="">
+
+            <h2>Personalized Investment Strategy</h2>
+            <p>We work with you to develop a personalized investment strategy that aligns with your financial goals and risk tolerance.</p>
+            <a href="#">Read more</a>
+       
+        </div>
+    </div>
+</section>
+
+
+<!-- Pricing -->
+
+<section id="contact-section" class="contact">
+    <h2 class="heading">Contact <span>Me!</span></h2>
+
+    <form action="{{ url_for('submit_feedback') }}" method="POST">
+        <div class="input-box">
+            <input type="text" name="full_name" placeholder="Full Name" required value="{{ current_user.username }}" readonly>
+            <input type="email" name="email" placeholder="Email Address" required value="{{ current_user.email }}" readonly>
+        </div>
+        <div class="input-box">
+            <input type="tel" name="mobile_number" placeholder="Mobile Number">
+            <input type="text" name="email_subject" placeholder="Email Subject" required>
+        </div>
+        <textarea name="message" id="" cols="30" rows="10" placeholder="Your Message" required></textarea>
+        <input type="submit" value="Send Message" class="btn">
+    </form>
+
+</section>
+
+<section id="news-section" class="contact">
+    <h1 id="title">Top gainers and Losers</h1>
+    <div class="button-container">
+        <button id="gainers-button" onclick="displayGainers()">Gainers</button>
+        <button id="losers-button" onclick="displayLosers()">Losers</button>
+    </div>
+    <div id="table-container">
+        <!-- The tables will be inserted here by JavaScript -->
+    </div>
+</section>
+<div id="data" style="display: none;">
+    <div id="top-gainers-data">{{ top_gainers|tojson|safe }}</div>
+    <div id="top-losers-data">{{ top_losers|tojson|safe }}</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

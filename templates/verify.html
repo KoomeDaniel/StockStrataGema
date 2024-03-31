@@ -1,0 +1,53 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+       <link href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" />
+       <link rel="stylesheet" href="{{ url_for('static', filename='verify.css') }}">
+       <title>Sign In and Sign Up form</title>
+    </head>
+    <body>
+        <!-- Button to open the modal -->
+        <button id="openModal">Open Modal</button>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Enter the verification code sent to your email</h2>
+                <form action="{{ url_for('verify') }}" method="POST">
+                    {{ form.hidden_tag() }}
+                    {{ form.verification_code.label }} {{ form.verification_code() }}
+                    {{ form.submit() }}
+                </form>
+            </div>
+        </div>
+    </body>
+    <script>
+       // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the page loads, open the modal 
+    window.onload = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+</html>

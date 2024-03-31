@@ -1,0 +1,124 @@
+{% extends "layout.html" %} 
+{% set active_page = "watchlist" %} 
+{% block content %}
+
+<!-- Page Content -->
+<div class="container main-container main-container-3d">
+  
+  <!-- Watch List -->
+  <div class="row wl-container">
+      <h1>My Watchlist</h1>
+  </div>
+
+  <div class="row wl-container mt-3 mb-3">
+      <div id='tickerInput' class="col-3">
+          <input class="form-control" id="tickerWlSymbol" placeholder="Enter a Ticker Symbol">
+      </div>
+      <div class="col">
+          <button id="add-row" type="submit" class="btn btn-primary mb-2">Add To Watchlist</button>
+      </div>
+  </div>
+
+  <div id="loading"></div>
+
+  <div id="watchlist_div" class="row wl-container table-responsive w3-animate-right">
+      <table id='watchlistTable' class="table table-hover">
+          <thead>
+              <tr>
+                  <th scope="col">Ticker</th>
+                  <th scope="col">Company Name</th>
+                  <th scope="col">Sector</th>
+                  <th scope="col">Industry</th>
+                  <th scope="col">Prev. Close</th>
+                  <th scope="col">Prev. Volume</th>
+                  <th scope="col">Remove Ticker</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for ticker_data in user_watchlist %}
+                <tr id="{{ ticker_data[0] | replace('.','_') }}">
+                    <td>
+                        <a class="wl-link" href="/overview?search-bar-ticker={{ ticker_data[0] }}" data-toggle="tooltip" data-placement="right" data-html="true" title="View more information on {{ ticker_data[1] }}">
+                            {{ ticker_data[0] }}
+                        </a>
+                    </td>
+                    <td>{{ ticker_data[1] }}</td>
+                    <td>{{ ticker_data[2] }}</td>
+                    <td>{{ ticker_data[3] }}</td>
+                    <td>{{'%0.2f'| format(ticker_data[4] | float) }}</td>
+                    <td>{{'{0:,}'.format(ticker_data[5] | int) }}</td>
+                    <td>
+                        <button id='wl-{{ ticker_data[0] }}' class="btn btn-outline-danger btn-sm remove" href="#" role="button">
+                        Remove From Watchlist
+                        </button>
+                    </td>
+                </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+{% endblock content %}
+
+{% block custom_script%}
+<script>
+    // Submit ticker for watchlist on enter 
+    $('#tickerWlSymbol').keypress(function(e) {
+        var key = e.which;
+        if (key == 13) // the enter key code
+        {
+            $('button[id=add-row]').click();
+            return false;
+        }
+    });
+
+    // Add watchlist row on click 
+    $('#add-row').on('click', function(e) {
+        let symbol = $('#tickerWlSymbol').val();
+        $('#tickerWlSymbol').removeClass("is-invalid")
+        $("#ticker-error").remove();
+
+        symbol = symbol.toUpperCase();
+        $("#loading").show();
+        $.ajax({
+            url: "{{url_for('add_to_watchlist')}}",
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({'symbol':symbol}),
+            complete:function(data){
+                $("#loading").hide();       
+                if(data.responseText == 'False'){
+                    $('#tickerWlSymbol').addClass("is-invalid")
+                    $("#tickerInput").append('<div id="ticker-error" class="invalid-feedback">Please choose another ticker.</div>');
+                    return;
+                }   
+                $("#watchlist_div").html(data.responseText).fadeOut(100).fadeIn(500);      
+                $('#tickerWlSymbol').val('');
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+    });
+
+    // Remove watchlist row on click 
+    $(document).on('click', "button.remove", function(e) {
+        $('#tickerWlSymbol').removeClass("is-invalid")
+        $("#ticker-error").remove();
+        
+        e.preventDefault()
+        if (this.id.startsWith("wl-")) {
+            deleted_symbol = this.id.slice(3);
+            $.ajax({
+                url: "{{url_for('delete_from_watchlist')}}",
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({'symbol':deleted_symbol.toUpperCase().replace("_", ".")}),
+                complete:function(data){
+                    console.log(deleted_symbol.replace(".", "_"))
+                    $('table#watchlistTable tr#'+deleted_symbol.replace(".", "_")).remove();
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+        }
+    });
+</script>
+{% endblock custom_script%}

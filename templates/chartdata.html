@@ -1,0 +1,134 @@
+{% extends "dashboardlayout.html" %}
+{% set dashboard_active_page = "chartdata" %} 
+
+{% block dashboard_content %}
+<!-- Downloadable Stock End of Day Data -->
+<div class="stock-data w3-animate-right">
+  <div class="row mb-4">
+      <div class="col-3">
+          <div class="form-group row">
+              <label for="startDate" class="col-sm-2 col-form-label">From</label>
+              <div id="startDateDiv" class="col-sm-10">
+                  <input type="date" class="form-control" id="startDate" placeholder="Start Date" value="-1">
+              </div>
+          </div>
+      </div>
+      <div class="col-3">
+          <div class="form-group row">
+              <label for="endDate" class="col-sm-2 col-form-label">To</label>
+              <div id="endDateDiv" class="col-sm-10">
+                  <input type="date" class="form-control" id="endDate" placeholder="End Date" value="-1">
+              </div>
+          </div>
+      </div>
+      <div class="col-4">
+          <button id="setDate" type="button" class="btn btn-success">Set Date</button>
+          <button id="resetDate" type="button" class="btn btn-info">Reset Date</button>
+      </div>
+      <div class="col-2"><a type="button" class="btn btn-primary" href="{{ url_for('get_daily_price_csv') }}" data-toggle="tooltip" data-placement="top" data-html="true" title="Download csv file of all daily prices">Download CSV</a></div>
+  </div>
+
+  <div id='eod_data_div' class="row table-responsive table-height">
+      <table id='eod_table' class="table">
+          <thead>
+              <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Open</th>
+                  <th scope="col">High</th>
+                  <th scope="col">Low</th>
+                  <th scope="col">Close</th>
+                  <th scope="col">Volume</th>
+                  <th scope="col">Adj Close</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for data in eod_data|reverse %}
+              <tr>
+                  <td>{{ data[0]|datetimeformat }}</td>
+                  {% for d in data[1:] %}
+                  <td>
+                    {% if loop.index == 5 %}
+                        {{'{0:,}'.format(d | int)}}
+                    {% else %}
+                        {{'%0.2f'| format(d|float)}}
+                    {% endif %}
+                    </td>
+                  {% endfor %}
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+{% endblock dashboard_content %}
+{% block custom_dashboard_script %}
+    <script>
+        function isValidDate(d) {
+            return d instanceof Date && !isNaN(d);
+        }
+
+        function clearErrors(){
+            document.getElementById("startDate").classList.remove("is-invalid");
+            $("#startdate-error").remove();
+
+            document.getElementById("endDate").classList.remove("is-invalid");
+            $("#enddate-error").remove();
+        }
+
+        $(document).ready(function() {
+            $("#setDate").click(function(e){
+                clearErrors();
+
+                var start_date = $('#startDate').val();
+                var end_date = $('#endDate').val();
+                
+                if(!isValidDate(new Date(start_date))){
+                    $('#startDate').addClass("is-invalid");
+                    $("#startDateDiv").append('<div id="startdate-error" class="invalid-feedback">Invalid start date.</div>');
+                    return;
+                }
+
+                if(!isValidDate(new Date(end_date)) || new Date(start_date) >= new Date(end_date)){
+                    $('#endDate').addClass("is-invalid");
+                    $("#endDateDiv").append('<div id="enddate-error" class="invalid-feedback">Invalid end date, end date must be after start date.</div>');
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{url_for('parse_date')}}",
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({'start_date':start_date, 'end_date':end_date}),
+                    complete:function(data){
+                        $("#eod_data_div").html(data.responseText).fadeOut(10).fadeIn(500);
+                    }
+                });
+            });
+
+            $("#resetDate").click(function(e){
+                clearErrors();
+                $('#startDate').val('');
+                $('#endDate').val('');
+                
+                $.ajax({
+                    url: "{{url_for('parse_date')}}",
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json', 
+                    data: JSON.stringify({'start_date':'reset_dates', 'end_date':'reset_dates'}),
+                    complete:function(data){
+                        $("#eod_data_div").html(data.responseText).fadeOut(1000).fadeIn(1000);
+                    }
+                });
+            });
+
+            $(".btn-primary").click(function(e){
+                var start_date = $('#startDate').val();
+                var end_date = $('#endDate').val();
+                var href = "{{ url_for('get_daily_price_csv') }}?start_date=" + start_date + "&end_date=" + end_date;
+                $(this).attr('href', href);
+            });
+        });
+    </script>
+{% endblock custom_dashboard_script %}

@@ -1,0 +1,72 @@
+<table id='techind_table' class="table text-center">
+  <thead>
+      <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Close</th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="Average True Range (ATR) is a technical analysis indicator that measures market volatility by decomposing the entire range of an asset price for that period.">
+              ATR
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="Exponential Moving Average (EMA) is a weighted moving average (WMA) that gives more weighting, or importance, to recent price data than the simple moving average (SMA) does.">
+            EMA5
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="21-day EMA">
+              EMA21
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="63-day EMA">
+              EMA63
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="126-day EMA">
+              EMA126
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="252-day EMA">
+              EMA252
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="Relative Strength Index (RSI) is a momentum indicator that measures the magnitude of recent price changes to evaluate overbought or oversold conditions in the price of a stock.">
+              RSI
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="Bollinger Band (BB) is a technical analysis tool defined by a set of lines plotted two standard deviations (Upper BB and Lower BB) away from a 20-day simple moving average of the security's price (Middle BB).">
+              Middle BB
+          </th>
+          <th scope="col">
+              Upper BB
+          </th>
+          <th scope="col">
+              Lower BB
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="Moving Average Convergence Divergence (MACD) is a trend-following momentum indicator that shows the relationship between two moving averages of a security's price.">
+              MACD
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="Signal Line is the 9-day EMA used with MACD.">
+              Signal Line
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" data-html="true" title="MACD-Histogram represents the difference between MACD and its 9-day EMA, the signal line. The histogram is positive when MACD is above its 9-day EMA and negative when MACD is below its 9-day EMA.">
+              MACD Histogramm
+          </th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" title="Daily Movement is the 10-day EMA of an instrument's daily price range.">
+              Daily Movement
+          </th>
+      </tr>
+  </thead>
+  <tbody>
+    {% for key, value in tech_ind_data.items()|reverse %}
+        <tr>
+            <td>{{ key|datetimeformat }}</td>
+            <td>{{ value['Close'] }}</td>
+            <td>{{ value['ATR'] }}</td>
+            <td>{{ value['EMA_5'] }}</td>
+            <td>{{ value['EMA_21'] }}</td>
+            <td>{{ value['EMA_63'] }}</td>
+            <td>{{ value['EMA_126'] }}</td>
+            <td>{{ value['EMA_252'] }}</td>
+            <td>{{ value['RSI'] }}</td>
+            <td>{{ value['BB_20MA'] }}</td>
+            <td>{{ value['BB_UpperBands'] }}</td>
+            <td>{{ value['BB_LowerBands'] }}</td>
+            <td>{{ value['MACD'] }}</td>
+            <td>{{ value['Signal_Line'] }}</td>
+            <td>{{ value['MACD_Histogram'] }}</td>
+            <td>{{ value['Daily Movement EMA'] }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

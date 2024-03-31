@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Template</title>
+    <link href="{{url_for('static', filename='favicon.png')}}" rel="shortcut icon" type="image/png">
+    <link href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='owl.carousel.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='owl.theme.default.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='bootstrap.min-RES.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='helper.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style-RES.css') }}" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.29.1.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdn.plot.ly/plotly-latest.min.css">
+</head>
+<body>
+    <div class="page-wrapper" id="page-wrapper">
+        <!-- Bread crumb -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">TODAY'S {{Result.quote}} {{timeframe}} STOCK DATA </h3> </div>
+            <div class="col-md-7 align-self-center">
+                <a href="{{ url_for('report') }}" class="btn btn-primary">Download Report</a>
+            </div>
+        </div>
+        <!-- End Bread crumb -->
+        <!-- Container fluid  -->
+        <div class="container-fluid">
+            <!-- Start Page Content -->
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="card bg-primary p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-bag f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.open_s}}</h2>
+                                <p class="m-b-0 text-white">OPEN</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                    <div class="card bg-warning p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-comment f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.high_s}}</h2>
+                                <p class="m-b-0 text-white">HIGH</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card bg-success p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-vector f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.low_s}}</h2>
+                                <p class="m-b-0 text-white">LOW</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card bg-danger p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-location-pin f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.close_s}}</h2>
+                                <p class="m-b-0 text-white">CLOSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card bg-warning p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-comment f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.adj_close}}</h2>
+                                <p class="m-b-0 text-white">ADJ CLOSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-2">
+                    <div class="card bg-primary p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-bag f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.vol}}</h2>
+                                <p class="m-b-0 text-white">VOLUME</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>RECENT TRENDS IN {{Result.quote}} STOCK PRICES</h4>
+                        </div>
+                        <div class="sales-chart">
+                            <img src="{{url_for('static', filename='Trends.png')}}" />
+                        </div>
+                    </div>
+                    <!-- /# card -->
+                </div>
+                <!-- /# column -->
+                
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>ARIMA MODEL ACCURACY</h4>
+                        </div>
+                        <div class="sales-chart">
+                            <img src="{{url_for('static', filename='ARIMA.png')}}" />
+                        </div>
+                    </div>
+                    <!-- /# card -->
+                </div>
+                <!-- /# column -->
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>LSTM MODEL ACCURACY</h4>
+                        </div>
+                        <div class="team-chart">
+                            <img src="{{url_for('static', filename='LSTM.png')}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>LINEAR REGRESSION MODEL ACCURACY</h4>
+                        </div>
+                        <div class="team-chart">
+                            <img src="{{url_for('static', filename='LR.png')}}" />
+                        </div>
+                    </div>
+                </div>
+                <!-- ARIMA PRED -->
+                <div class="col-md-4">
+                    <div class="card bg-success p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-vector f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.arima_pred}}</h2>
+                                <p class="m-b-0 text-white">TOMORROW'S {{Result.quote}} CLOSING PRICE BY ARIMA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LSTM PRED -->
+                <div class="col-md-4">
+                    <div class="card bg-warning p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-comment f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.lstm_pred}}</h2>
+                                <p class="m-b-0 text-white">TOMORROW'S {{Result.quote}} CLOSING PRICE BY LSTM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LR PRED -->
+                <div class="col-md-4">
+                    <div class="card bg-danger p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-location-pin f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.lr_pred}}</h2>
+                                <p class="m-b-0 text-white">TOMORROW'S {{Result.quote}} CLOSING PRICE BY LINEAR REGRESSION</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ARIMA ERR-->
+                <div class="col-md-4">
+                    <div class="card bg-primary p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-vector f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.error_arima}}</h2>
+                                <p class="m-b-0 text-white">ARIMA RMSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LSTM ERR -->
+                <div class="col-md-4">
+                    <div class="card bg-primary p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-comment f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.error_lstm}}</h2>
+                                <p class="m-b-0 text-white">LSTM RMSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LR ERR -->
+                <div class="col-md-4">
+                    <div class="card bg-primary p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-location-pin f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white text-white">{{Result.error_lr}}</h2>
+                                <p class="m-b-0 text-white">LINEAR REGRESSION RMSE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>PREDICTED {{Result.quote}} PRICE FOR THE NEXT 7 DAYS</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Close</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <a href="https://finance.yahoo.com/quote/{{Result.quote}}"><img style="padding: 0px,0px,0px,0px;width:120px;height: 120px;" src="{{url_for('static', filename='fore.png')}}" alt=""></a>
+                                                </div>
+                                            </td>
+                                            <td>{% for row in Result.forecast_set %}
+                                      {{row[0]}}<br>
+                                      {% endfor %}</td>
+                                            <td><span></span></td>
+                                            <td><span></span></td>
+                                            <td><span class="badge badge-success"></span></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         
+         
+
+
+            <!-- End PAge Content -->
+        </div>
+        <!-- End Container fluid  -->
+
+    </div>
+    <!-- End Page wrapper  -->
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <!-- Company Details -->
+            <div class="col-md-4">
+                <h5>StockStrataGema</h5>
+                <p>123 Business Rd, City, State, 12345</p>
+            </div>
+            
+            <!-- Contact Details -->
+            <div class="col-md-4">
+                <h5>Contact</h5>
+                <p>Email: info@company.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+            
+            <!-- Social Media Links -->
+            <div class="col-md-4">
+                <h5>Follow Us</h5>
+                <a href="#">Facebook</a><br>
+                <a href="#">Twitter</a><br>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

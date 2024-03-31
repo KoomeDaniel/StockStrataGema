@@ -1,0 +1,160 @@
+{% extends "dashboardlayout.html" %}
+{% set dashboard_active_page = "overview" %} 
+
+{% block dashboard_content %}
+<!-- Chart and Company Information -->
+<div id='dashboard-content' class="w3-animate-right">
+  <div class="row">
+      <div class="col">
+          <div class="container chart-card card-border">
+            <div id="stock-chart" style="width: 43rem; height: 22rem;">
+                <script>
+                    var graphs = {{ plot|safe }};
+                    Plotly.plot('stock-chart',graphs,{
+                        margin: {
+                            l: 30,
+                            r: 20,
+                            b: 30,
+                            t: 30,
+                            pad: 4
+                            },
+                        yaxis: {
+                            automargin: true,
+                        },
+                        xaxis: {
+                            automargin: true,
+                            autorange: true,
+                            rangeselector: {buttons: [
+                                {
+                                count: 5,
+                                label: '5D',
+                                step: 'day',
+                                stepmode: 'backward'
+                                },                                    
+                                {
+                                count: 1,
+                                label: '1M',
+                                step: 'month',
+                                stepmode: 'backward'
+                                },
+                                {
+                                count: 6,
+                                label: '6M',
+                                step: 'month',
+                                stepmode: 'backward'
+                                },
+                                {
+                                count: 1,
+                                label: '1Y',
+                                step: 'year',
+                                stepmode: 'backward'
+                                },
+                                {
+                                count: 3,
+                                label: '3Y',
+                                step: 'year',
+                                stepmode: 'backward'
+                                },
+                                {
+                                count: 5,
+                                label: '5Y',
+                                step: 'year',
+                                stepmode: 'backward'
+                                },
+                                {
+                                count: 10,
+                                label: '10Y',
+                                step: 'year',
+                                stepmode: 'backward'
+                                },
+                                {
+                                count: 1,
+                                label: 'YTD',
+                                step: 'year',
+                                stepmode: 'todate'
+                                },
+                                {
+                                label: 'MAX', 
+                                step: 'all',
+                                active: true
+                                }
+                            ]}}
+                            });
+                </script>
+            </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="info-card card-border">
+              <ul class="list-group">
+                  <li><span class="info-group-header">Sector</span>
+                      <ul class="list-group">
+                          <li class="list-group-item list-item border-0">
+                            {{ gen_info['sector'] }}
+                          </li>
+                      </ul>
+                  </li>
+
+                  <li><span class="info-group-header">Industry</span>
+                      <ul class="list-group">
+                          <li class="list-group-item list-item border-0">
+                            {{ gen_info['industry'] }}
+                          </li>
+                      </ul>
+                  </li>
+
+                  <li><span class="info-group-header">Employees</span>
+                      <ul class="list-group">
+                          <li class="list-group-item list-item border-0">
+                            {{ gen_info['employees'] }}
+                          </li>
+                      </ul>
+                  </li>
+
+                  <li><span class="info-group-header">Website</span>
+                      <ul class="list-group">
+                          <li class="list-group-item list-item border-0">
+                              <a href="{{ gen_info['website'] }}" target="_blank">{{ gen_info['website'] }}</a>
+                          </li>
+                      </ul>
+                  </li>
+
+                  <li><span class="info-group-header">Business Summary</span>
+                      <ul class="list-group">
+                          <li class="list-group-item list-item border-0">
+                            {{ gen_info['business_summary'] }}
+                          </li>
+                      </ul>
+                  </li>
+
+              </ul>
+          </div>
+      </div>
+  </div>
+
+  <!-- Company News -->
+  <div id="current-news" class="row">
+      <div class="container data-group">
+          <div class="row data-group-row">
+              <h3>Current News on {{ comp_name }}</h3>
+          </div>
+          <div class="row data-group-row news-section">
+              <ul class="current-news-list">
+                  {% for News in curr_ticker_news %}
+                    <li class="list-group-item">
+                        <span>
+                            {{ News[0] }}
+                        </span>
+                        <ul class="current-news-list">
+                            <li class="news-links">
+                                <a href="{{ News[1] }}" target="_blank">{{ News[1] }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                  {% endfor %}
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock dashboard_content %}

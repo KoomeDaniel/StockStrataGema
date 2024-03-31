@@ -1,0 +1,111 @@
+{% extends "layout.html" %} 
+{% set active_page = "dashboard" %} 
+{% block content %}
+
+{% set bottom_navigation_bar = 
+    [ ('/overview', 'overview', 'Overview'), 
+    ('/chartdata', 'chartdata', 'Chart Data'), 
+    ('/results','results', 'Results'), 
+    ('/technicalindicators', 'technicalindicators', 'Technical Indicators'),
+    ('/statistics', 'statistics', 'Statistics'),
+    ('/financials', 'financials', 'Financials')] -%}
+
+<!-- Page Content -->
+<div class="container main-container main-container-3d">
+
+    <!-- Stock Header -->
+    <div class="row justify-content-between">
+        <div class="col-3">
+            <a href="{{ url_for('index') }}">
+                <img src="/static/images/return.png"  alt="Return Home" style="width: 32px; height: 32px;" >
+            </a>
+        </div>
+        <div class="col-10">
+            <h1 id='ticker'>{{ comp_name }} ({{ comp_ticker }})</h1>
+        </div>
+        <div class="col-2">
+            <div id="price" class="price-format"></div>
+            <div id="price-diff" class="price-up"></div>
+        </div>
+    </div>
+
+    <!-- Second Nav Bar -->
+    <div id="second-navbar" class="row">
+        <ul class="list-group list-group-horizontal">
+            {% for href, id, caption in bottom_navigation_bar %}
+            <li class="list-group-item border-0">
+                <a {% if id == dashboard_active_page %} class="nav-link second-nav active" {% else %} class="nav-link second-nav" {% endif %} href="{{ href|e }}">{{ caption|e }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr> 
+    {% block dashboard_content %}{% endblock dashboard_content %}
+</div>
+
+{% endblock content %}
+
+{% block custom_script %}
+<script>
+    function isWorkingHour() {
+        d = new Date();
+        return d.getDay() >= 1 && d.getDay() <= 5 && d.getHours() >= 9 && d.getHours() < 16;
+    }
+
+    function fetchdata(ticker){
+        console.log('GETTING DATA FOR ' + ticker)
+        $.ajax({
+        url: "{{url_for('get_price')}}",
+        type: 'post',
+        dataType: 'json',
+        data: JSON.stringify({'ticker_name':ticker}),
+        success: function(data){
+            sessionStorage.setItem("current_price", data['new_price'])
+            sessionStorage.setItem("current_price_difference", data['new_price_diff'])
+            diff_pos_or_neg = data['new_price_diff'].split(" ")[0].charAt(0)
+
+            new_class = ''
+            if(diff_pos_or_neg == '-'){
+                new_class = 'price-down'
+            }else{
+                new_class = 'price-up'
+            }
+            sessionStorage.setItem("price_diff_class", new_class)
+
+            $("#price-diff").html(data['new_price_diff']).removeClass().addClass(new_class).fadeOut(100).fadeIn(500);
+            $("#price").html(data['new_price']).fadeOut(100).fadeIn(500);
+        },
+        complete:function(data){
+            
+            if(isWorkingHour()){
+                t = setTimeout(fetchdata,5000,ticker);
+            }
+            else{
+                clearTimeout(t);
+            }
+        }
+    });}
+
+    $(document).ready(function() {
+        current_price = sessionStorage.getItem("current_price");
+        current_price_diff = sessionStorage.getItem("current_price_difference");
+
+        $("#price").html('NAN')
+        $("#price-diff").html('NAN')
+        if(current_price != null){
+            $("#price").html(current_price)
+            $("#price-diff").html(current_price_diff)
+            $("#price-diff").removeClass().addClass(sessionStorage.getItem("price_diff_class"));
+        }
+
+        let stock_ticker = $("#ticker").text().split(" ");
+        let ticker = stock_ticker[stock_ticker.length - 1].slice(1, -1);
+
+        if(isWorkingHour()){
+            t = setTimeout(fetchdata,5000,ticker);
+        }
+    });
+</script>
+{% block custom_dashboard_script %}{% endblock custom_dashboard_script %}
+{% endblock custom_script %}
+

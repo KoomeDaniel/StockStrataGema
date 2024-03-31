@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="The page your looking for does not exist">
+    <meta name="author" content="Janit Sriganeshaelankovan">
+    <title>Page Not Found</title>
+    <link href="{{url_for('static', filename='favicon.png')}}" rel="shortcut icon" type="image/png">
+    <link href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  </head>
+  
+  <body>
+    <div class="container h-100 d-flex justify-content-center">  
+      <div class="jumbotron my-auto" style="background-color: white;">
+          <img src="{{url_for('static', filename='error.gif')}}" alt="404 GIF">
+      </div>  
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <a href="{{ url_for('home') }}" class="btn btn-outline-warning btn-lg">Try Again</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

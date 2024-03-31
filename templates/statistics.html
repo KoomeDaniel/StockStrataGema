@@ -1,0 +1,192 @@
+{% extends "dashboardlayout.html" %}
+{% set dashboard_active_page = "statistics" %} 
+
+{% block dashboard_content %}
+<!-- Statistics Data -->
+<div class="row justify-content-between stat-row w3-animate-right">
+  <div class="col stat-col">
+      <h4>Fiscal Year</h4>
+      <hr>
+      <ul class="list-group ">
+          <li class="list-group-item border-0">
+              <span class=" stat-text stat-title">Fiscal Year End</span>
+              <span class="stat-text stat-value ">{{ stats_data['Fiscal Year End'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Most Recent Quarter</span>
+              <span class="stat-text stat-value">{{ stats_data['Most Recent Quarter'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+      </ul>
+  </div>
+  <div class="col stat-col">
+      <h4>Profitability</h4>
+      <hr>
+      <ul class="list-group border-0">
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Profit Margin</span>
+              <span class="stat-text stat-value">{{ stats_data['Profit Margin'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Operating Margin</span>
+              <span class="stat-text stat-value">{{ stats_data['Operating Margin'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+      </ul>
+  </div>
+</div>
+
+<div class="row justify-content-between stat-row w3-animate-right">
+  <div class="col stat-col">
+      <h4>Management Effectiveness</h4>
+      <hr>
+      <ul class="list-group border-0">
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Return on Assets</span>
+              <span class="stat-text stat-value">{{ stats_data['Return on Assets'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Return on Equity</span>
+              <span class="stat-text stat-value">{{ stats_data['Return on Equity'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+      </ul>
+  </div>
+  <div class="col stat-col">
+      <h4>Stock Price History</h4>
+      <hr>
+      <ul class="list-group border-0">
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Beta</span>
+              <span class="stat-text stat-value">{{ stats_data['Beta'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">52-Week Change</span>
+              <span class="stat-text stat-value">{{ stats_data['52-Week Change'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+      </ul>
+  </div>
+</div>
+
+
+<div class="row justify-content-between stat-row w3-animate-right">
+  <div class="col stat-col">
+      <h4>Dividends and Split</h4>
+      <hr>
+      <ul class="list-group">
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Dividend Date</span>
+              <span class="stat-text stat-value">{{ stats_data['Dividend Date'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Ex-Dividend Date</span>
+              <span class="stat-text stat-value">{{ stats_data['ExDividend Date'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Last Split Date</span>
+              <span class="stat-text stat-value">{{ stats_data['LastSplit Date'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Forward Annual Dividend Rate</span>
+              <span class="stat-text stat-value">{{ stats_data['Forward Annual Dividend Rate'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Forward Annual Dividend Yield</span>
+              <span class="stat-text stat-value">{{ stats_data['Forward Annual Dividend Yield'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Trailing Annual Dividend Rate</span>
+              <span class="stat-text stat-value">{{ stats_data['Trailing Annual Dividend Rate'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Trailing Annual Dividend Yield</span>
+              <span class="stat-text stat-value">{{ stats_data['Trailing Annual Dividend Yield'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Payout Ratio</span>
+              <span class="stat-text stat-value">{{ stats_data['Payout Ratio'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+      </ul>
+  </div>
+  <div class="col stat-col">
+      <h4>Valuation Measures</h4>
+      <hr>
+      <ul class="list-group ">
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Market Capitalization</span>
+              <span class="stat-text stat-value">{{ stats_data['Market Capitalization'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title ">Enterprise Value</span>
+              <span class="stat-text stat-value ">{{ stats_data['Enterprise Value'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Trailing P/E</span>
+              <span class="stat-text stat-value">{{ stats_data['Trailing PE'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Forward P/E</span>
+              <span class="stat-text stat-value">{{ stats_data['Forward PE'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">PEG Ratio</span>
+              <span class="stat-text stat-value">{{ stats_data['PEG Ratio'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Price to Sales</span>
+              <span class="stat-text stat-value">{{ stats_data['Price to Sales'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Price to Book</span>
+              <span class="stat-text stat-value">{{ stats_data['Price to Book'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Enterprise to EBITDA</span>
+              <span class="stat-text stat-value">{{ stats_data['Enterprise to EBITDA'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Enterprise to Revenue</span>
+              <span class="stat-text stat-value">{{ stats_data['Enterprise to Revenue'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+      </ul>
+  </div>
+</div>
+
+<div class="row justify-content-between stat-row last-stat-row w3-animate-right">
+  <div class="col stat-col">
+      <h4>Share Statistics</h4>
+      <hr>
+      <ul class="list-group border-0">
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Shares Outstanding</span>
+              <span class="stat-text stat-value">{{ stats_data['Shares Outstanding'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Float</span>
+              <span class="stat-text stat-value">{{ stats_data['Float'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">% Held by Insiders</span>
+              <span class="stat-text stat-value">{{ stats_data['% Held by Insiders'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">% Held by Institutions</span>
+              <span class="stat-text stat-value">{{ stats_data['% Held by Institutions'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title ">Shares Short</span>
+              <span class="stat-text stat-value ">{{ stats_data['Shares Short'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Short% of Float</span>
+              <span class="stat-text stat-value">{{ stats_data['Short% of Float'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Short% of Shares Outstanding</span>
+              <span class="stat-text stat-value">{{ stats_data['Short% of Shares Outstanding'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+          <li class="list-group-item border-0">
+              <span class="stat-text stat-title">Short Ratio</span>
+              <span class="stat-text stat-value">{{ stats_data['Short Ratio'] if p != None or p != 'NAN' else 'NAN' }}</span>
+          </li>
+      </ul>
+  </div>
+</div>
+{% endblock dashboard_content %}

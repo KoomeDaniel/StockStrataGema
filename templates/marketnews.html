@@ -1,0 +1,101 @@
+{% extends "layout.html" %} 
+{% set active_page = "marketnews" %} 
+{% block content %}
+<!-- Page Content -->
+<div class="container main-container main-container-3d">
+
+  <div class="row wl-container">
+      <h1>Current Market News</h1>
+  </div>
+
+  <div class="btn-group fin-button-div" role="group">
+      <button id="google-btn" type="button" class="btn btn-info">Google News</button>
+      <button id="marketwatch-btn" type="button" class="btn btn-outline-info">MarketWatch News</button>
+      <button id="businessinsider-btn" type="button" class="btn btn-outline-info">Business Insider News</button>
+      <button id="financialpost-btn" type="button" class="btn btn-outline-info">Financial Post News</button>
+  </div>
+
+  <div class="row">
+    <!-- Google News List -->
+    <div id="google-news" class="row data-group-row w3-animate-right">
+        {% for header, link in google_news_data %}
+            <ul class="market-news-list">
+                <li class="list-group-item">
+                    <span>
+                        {{ header }}
+                    </span>
+                    <ul class="current-news-list">
+                        <li class="news-links">
+                            <a href="{{ link }}" target="_blank">
+                                {{ link }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        {% endfor %}
+    </div>
+
+    <!-- MarketWatch News List -->
+    <div id="marketwatch-news" class="row data-group-row w3-animate-right">
+        {% for header, link in marketwatch_news_data %}
+            <ul class="market-news-list">
+                <li class="list-group-item">
+                    <span>
+                        {{ header }}
+                    </span>
+                    <ul class="current-news-list">
+                        <li class="news-links">
+                            <a href="{{ link }}" target="_blank">
+                                {{ link }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        {% endfor %}
+    </div>
+
+    <!-- Business Insider News List -->
+    <div id="businessinsider-news" class="row data-group-row w3-animate-right">
+        {% for header, link in business_insider_news_data %}
+            <ul class="market-news-list">
+                <li class="list-group-item">
+                    <span>
+                        {{ header }}
+                    </span>
+                    <ul class="current-news-list">
+                        <li class="news-links">
+                            <a href="{{ link }}" target="_blank">
+                                {{ link }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        {% endfor %}
+    </div>
+
+    <!-- Financial Post News List -->
+    <div id="financialpost-news" class="row data-group-row w3-animate-right">
+        {% for header, link in financial_post_news_data %}
+            <ul class="market-news-list">
+                <li class="list-group-item">
+                    <span>
+                        {{ header }}
+                    </span>
+                    <ul class="current-news-list">
+                        <li class="news-links">
+                            <a href="{{ link }}" target="_blank">
+                                {{ link }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock content %}
