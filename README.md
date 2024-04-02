@@ -33,8 +33,7 @@ A step by step series of examples that tell you how to get a development environ
 ### Configuration
 Open the config.cfg and enter your email address and the email app key in the respective variable.
     ```
-    my_mail = your_email
-    
+    my_mail = your_email    ||
     smtp_password = your_email_key
     ```
 
