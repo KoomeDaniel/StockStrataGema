@@ -33,7 +33,8 @@ A step by step series of examples that tell you how to get a development environ
 ### Configuration
 Open the config.cfg and enter your email address and the email app key in the respective variable.
     ```
-    mysql://root:@localhost/user
+    my_mail = your_email
+    smtp_password = your_email_key
     ```
 
 The database connection is set to default configurations. If you have changed the SQL configuration, adjust the Flask configurations in the `db_connection.py` file to connect to the database according to the changes made.
