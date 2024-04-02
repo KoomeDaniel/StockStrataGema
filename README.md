@@ -31,9 +31,10 @@ A step by step series of examples that tell you how to get a development environ
 5. Create a new database named "user" in the MySQL module of XAMPP.
 
 ### Configuration
+Open the config.cfg and enter your email address and the email app key in the respective variable.
 
 The database connection is set to default configurations. If you have changed the SQL configuration, adjust the Flask configurations in the `db_connection.py` file to connect to the database according to the changes made.
-```
+    ```
     mysql://root:@localhost/user
     ```
 
